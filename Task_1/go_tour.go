@@ -15,9 +15,9 @@ func Sqrt(num float64) float64 {
 	// допустимо любое значение большее чем 0.00001
 	delta := 1.0
 	for delta > 0.00001 {
-		z_pre := z
+		zPre := z
 		z = z - (z*z-num)/(2*z)
-		delta = z_pre - z
+		delta = zPre - z
 	}
 	return z
 }
@@ -26,11 +26,11 @@ func Sqrt(num float64) float64 {
 func Pic(dx, dy int) [][]uint8 {
 	pic := make([][]uint8, dy)
 	for y := 0; y < dy; y++ {
-		tmp_row := make([]uint8, dx)
+		tmpRow := make([]uint8, dx)
 		for x := 0; x < dx; x++ {
-			tmp_row[x] = uint8((x + y) / 2)
+			tmpRow[x] = uint8((x + y) / 2)
 		}
-		pic[y] = tmp_row
+		pic[y] = tmpRow
 	}
 	return pic
 }
@@ -39,23 +39,23 @@ func Pic(dx, dy int) [][]uint8 {
 func WordCount(s string) map[string]int {
 
 	str_arr := strings.Fields(s)
-	w_map := make(map[string]int)
+	wMap := make(map[string]int)
 
 	for _, val := range str_arr {
-		w_map[val]++
+		wMap[val]++
 	}
-	return w_map
+	return wMap
 }
 
 //Task: Fibonacci
-func fibonacci() func() int {
-	pre_pr := -1
-	pr := 1
+func Fibonacci() func() int {
+	pre_val := -1
+	val := 1
 	return func() int {
-		buf := pr
-		pr += pre_pr
-		pre_pr = buf
-		return pr
+		buf := val
+		val += pre_val
+		pre_val = buf
+		return val
 	}
 }
 
@@ -73,7 +73,7 @@ func main() {
 	wc.Test(WordCount)
 	//Task: Fibonacci
 	fmt.Println("|Fibonacci number:")
-	f := fibonacci()
+	f := Fibonacci()
 	for i := 0; i < 10; i++ {
 		fmt.Println(f())
 	}
