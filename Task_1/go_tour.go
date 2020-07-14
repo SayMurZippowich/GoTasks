@@ -15,9 +15,9 @@ func Sqrt(num float64) float64 {
 	// допустимо любое значение большее чем 0.00001
 	delta := 1.0
 	for delta > 0.00001 {
-		zPre := z
+		zPrev := z
 		z = z - (z*z-num)/(2*z)
-		delta = zPre - z
+		delta = zPrev - z
 	}
 	return z
 }
@@ -38,10 +38,10 @@ func Pic(dx, dy int) [][]uint8 {
 //Task: map
 func WordCount(s string) map[string]int {
 
-	str_arr := strings.Fields(s)
+	strArr := strings.Fields(s)
 	wMap := make(map[string]int)
 
-	for _, val := range str_arr {
+	for _, val := range strArr {
 		wMap[val]++
 	}
 	return wMap
@@ -49,12 +49,12 @@ func WordCount(s string) map[string]int {
 
 //Task: Fibonacci
 func Fibonacci() func() int {
-	pre_val := -1
+	prevVal := -1
 	val := 1
 	return func() int {
 		buf := val
-		val += pre_val
-		pre_val = buf
+		val += prevVal
+		prevVal = buf
 		return val
 	}
 }
