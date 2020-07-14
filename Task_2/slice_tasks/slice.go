@@ -181,7 +181,7 @@ func main() {
 	sort.Sort(sort.Reverse(sort.IntSlice(sliceToSort)))
 	fmt.Printf("Sorted in decreasing order: %d\n", sliceToSort)
 
-	sliceToSortStr := []string{"zip", "app", "acb", "abc"}
+	sliceToSortStr := []string{"zz", "app", "acb", "abc"}
 	fmt.Printf("Unsorted strings slice: %s\n", sliceToSortStr)
 	sort.Strings(sliceToSortStr)
 	fmt.Printf("Sorted strings slice: %s\n", sliceToSortStr)
