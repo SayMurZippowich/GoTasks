@@ -22,26 +22,28 @@ func DelElement(sl *[]int, num int) int {
 
 func Difference(slA *[]int, slB *[]int) []int {
 
-	m := make(map[int]bool, len(*slA)) // map[val]existsInB
-	// map значений slA
+	m := make(map[int]int, len(*slA)) // map[val]existsInB
+	// map значений и частот slA
 	for _, val := range *slA {
-		m[val] = false
+		m[val]++
 	}
 
 	for _, val := range *slB {
 		/* если элемент из slB есть в m
 		(т.е. присутствует в slА)
-		то он помечается как true */
+		то его знак меняется на противоположный */
 		if _, exists := m[val]; exists {
-			m[val] = true
+			m[val] *= -1
 		}
 	}
 
 	var diffSl []int
 
-	for val, inB := range m {
-		if !inB {
-			diffSl = append(diffSl, val)
+	for num, frc := range m {
+		if frc > 0 {
+			for i := 0; i < frc; i++ {
+				diffSl = append(diffSl, num)
+			}
 		}
 	}
 	return diffSl
@@ -128,7 +130,7 @@ func main() {
 	fmt.Println(unionSl, "\n")
 
 	fmt.Println("8. Из первого slice удалить все числа, которые есть во втором:")
-	minusSl := []int{0, 3, 9, 101}
+	minusSl := []int{0, 3, 101}
 	fmt.Printf("%d - %d = ", unionSl, minusSl)
 	fmt.Println(Difference(&unionSl, &minusSl), "\n")
 
