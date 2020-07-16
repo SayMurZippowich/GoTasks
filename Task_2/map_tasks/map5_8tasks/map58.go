@@ -56,9 +56,9 @@ func (strg Storage) AppendPr(product string, cost float64) bool {
 	}
 	strg[product] = cost
 	// получить новое id
-	new_id := storeBaseIds.GetUniqId()
+	newId := storeBaseIds.GetUniqId()
 	// присвоить новое id
-	storeBaseIds[product] = new_id
+	storeBaseIds[product] = newId
 	return true
 }
 

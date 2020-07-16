@@ -135,8 +135,8 @@ func FibMem(memMap map[int]int, n int) int {
 func main() {
 
 	fmt.Println("1. Есть текст, надо посчитать сколько раз каждое слово встречается:")
-	w_map := CountWordsFileHandler("word_map.txt")
-	for key, val := range w_map {
+	wMap := CountWordsFileHandler("word_map.txt")
+	for key, val := range wMap {
 		fmt.Printf("Word: %s | Count: %d\n", key, val)
 	}
 
