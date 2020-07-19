@@ -1,0 +1,111 @@
+package main
+
+import (
+	"testing"
+)
+
+var storeBase = Products{
+	0: 2.35,
+	1: 5.25,
+	2: 152.0,
+	3: 3.0,
+}
+
+// товары Id
+var storeBaseIds = StorageIds{
+	"lamp":      0,
+	"keyboard":  1,
+	"phone":     2,
+	"usb_cable": 3,
+}
+
+// заказы
+var ordersBase = make(Orders)
+
+// баланс пользователей
+var usersBase = User{
+	"Admin":    454.00,
+	"User":     55.45,
+	"RichUser": 1150,
+}
+
+// Ожидается: сумма данного заказа равнa 161.95
+func TestGetTotal_161_95(t *testing.T) {
+	// база магазина
+	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+
+	var usrCrt Carter = &UserCart{"keyboard": 1, "phone": 1, "lamp": 2}
+
+	v := usrCrt.GetTotal(strBase.(*StorageBase))
+
+	if v != 161.95 {
+		t.Fatal()
+	}
+}
+
+// Ожидается: новое id = 4
+func TestGetCorrId_4(t *testing.T) {
+	// база магазина
+	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+
+	vPre := (strBase.(*StorageBase)).Ids
+	v := vPre.GetUniqId()
+
+	if v != 4 {
+		t.Fatal()
+	}
+}
+
+// Ожидается: отсутствие ошибки
+func TestAppendPr_Nil(t *testing.T) {
+	// база магазина
+	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+
+	v := (strBase.(*StorageBase)).AppendPr("microphone", 3.25)
+
+	if v != nil {
+		t.Fatal()
+	}
+}
+
+// Ожидается: отсутствие ошибки
+func TestUpdatePr_Nil(t *testing.T) {
+	// база магазина
+	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+
+	v := (strBase.(*StorageBase)).UpdatePr("phone", 3.25)
+
+	if v != nil {
+		t.Fatal()
+	}
+}
+
+// Ожидается: будут получены два значения
+func TestGetTotalMulti_161_95(t *testing.T) {
+	// база магазина
+	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+
+	var usrCrt Carter = &UserCart{"keyboard": 1, "phone": 1, "lamp": 2}
+
+	v := usrCrt.GetTotalMulti(strBase.(*StorageBase))
+	v2 := usrCrt.GetTotalMulti(strBase.(*StorageBase))
+
+	if v != 161.95 && v2 != 161.95 {
+		t.Fatal()
+	}
+}
+
+// Ожидается, что Admin может купить товары из заданной корзины, а User нет
+func TestIsAllowedFor_True(t *testing.T) {
+	// база магазина
+	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+
+	var usrCrt Carter = &UserCart{"keyboard": 1, "phone": 1, "lamp": 2}
+
+	v := usrCrt.IsAllowedFor(strBase.(*StorageBase), usersBase, "Admin")
+	v2 := usrCrt.IsAllowedFor(strBase.(*StorageBase), usersBase, "User")
+
+	if !v && v2 {
+		t.Fatal()
+	}
+}
