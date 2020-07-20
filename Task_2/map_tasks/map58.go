@@ -67,7 +67,7 @@ func (crt Cart) MakeSrtByCart(storeBaseIds StorageIds, sortedKeys *[]string) str
 }
 
 // получить срез отсортированных ключей
-func (crt Cart) GetSotedKeys() []string {
+func (crt Cart) GetSortedKeys() []string {
 	keys := make([]string, 0, len(crt))
 	for k := range crt {
 		keys = append(keys, k)
@@ -86,7 +86,7 @@ func (crt Cart) GetSotedKeys() []string {
 func (crt Cart) GetTotalMulti(storeBase Storage, storeBaseIds StorageIds, ordersBase Orders) float64 {
 	var total float64
 	// получить срез отсортированных ключей
-	sortedKeys := crt.GetSotedKeys()
+	sortedKeys := crt.GetSortedKeys()
 	// на основе упорядоченной карты
 	// создать ключ-строку
 	crtStr := crt.MakeSrtByCart(storeBaseIds, &sortedKeys)
@@ -122,7 +122,7 @@ func (crt Cart) IsAllowedFor(storeBase Storage, storeBaseIds StorageIds, ordersB
 // если reverse == 0
 // при любом ином значении
 // значений выводятся в обратном алф. порядке
-func (usr User) PrSortedNames(reverse int) {
+func (usr User) PrintSortedNames(reverse int) {
 	keys := make([]string, 0, len(usr))
 	for k := range usr {
 		keys = append(keys, k)
@@ -141,7 +141,7 @@ func (usr User) PrSortedNames(reverse int) {
 }
 
 // По убыванию средств пользователей
-func (usr User) PrByBalance() {
+func (usr User) PrintByBalance() {
 
 	type kVal struct {
 		Key   string
@@ -214,9 +214,9 @@ func main() {
 	fmt.Println("Счёт пользователя после сделки", usersBase[user])
 
 	fmt.Println("8. Есть map аккаунтов и счетов, как описано в 3. Надо вывести ее в отсортированном виде с сортировкой: по имени в алфавитном порядке, по имени в обратном порядке, по количеству денег по убыванию\n")
-	usersBase.PrSortedNames(0)
+	usersBase.PrintSortedNames(0)
 	fmt.Println("\nОбратный порядок:")
-	usersBase.PrSortedNames(1)
+	usersBase.PrintSortedNames(1)
 	fmt.Println("\nПо убыванию средств пользователей:")
-	usersBase.PrByBalance()
+	usersBase.PrintByBalance()
 }
