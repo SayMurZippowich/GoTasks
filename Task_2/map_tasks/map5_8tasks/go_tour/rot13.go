@@ -16,7 +16,6 @@ func rot13(b byte) byte {
 	default:
 		return b + 13
 	}
-	return b
 }
 
 type rot13Reader struct {
