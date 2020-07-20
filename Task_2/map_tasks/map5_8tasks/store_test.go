@@ -32,11 +32,11 @@ var usersBase = User{
 // Ожидается: сумма данного заказа равнa 161.95
 func TestGetTotal_161_95(t *testing.T) {
 	// база магазина
-	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+	var strBase = &StorageBase{storeBaseIds, storeBase, ordersBase}
 
 	var usrCrt Carter = &UserCart{"keyboard": 1, "phone": 1, "lamp": 2}
 
-	v := usrCrt.GetTotal(strBase.(*StorageBase))
+	v := usrCrt.GetTotal(strBase)
 
 	if v != 161.95 {
 		t.Fatal()
@@ -46,9 +46,9 @@ func TestGetTotal_161_95(t *testing.T) {
 // Ожидается: новое id = 4
 func TestGetCorrId_4(t *testing.T) {
 	// база магазина
-	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+	var strBase = &StorageBase{storeBaseIds, storeBase, ordersBase}
 
-	vPre := (strBase.(*StorageBase)).Ids
+	vPre := (strBase).Ids
 	v := vPre.GetUniqId()
 
 	if v != 4 {
@@ -59,9 +59,9 @@ func TestGetCorrId_4(t *testing.T) {
 // Ожидается: отсутствие ошибки
 func TestAppendPr_Nil(t *testing.T) {
 	// база магазина
-	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+	var strBase = &StorageBase{storeBaseIds, storeBase, ordersBase}
 
-	v := (strBase.(*StorageBase)).AppendPr("microphone", 3.25)
+	v := (strBase).AppendPr("microphone", 3.25)
 
 	if v != nil {
 		t.Fatal()
@@ -71,9 +71,9 @@ func TestAppendPr_Nil(t *testing.T) {
 // Ожидается: отсутствие ошибки
 func TestUpdatePr_Nil(t *testing.T) {
 	// база магазина
-	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+	var strBase = &StorageBase{storeBaseIds, storeBase, ordersBase}
 
-	v := (strBase.(*StorageBase)).UpdatePr("phone", 3.25)
+	v := (strBase).UpdatePr("phone", 3.25)
 
 	if v != nil {
 		t.Fatal()
@@ -83,12 +83,12 @@ func TestUpdatePr_Nil(t *testing.T) {
 // Ожидается: будут получены два значения
 func TestGetTotalMulti_161_95(t *testing.T) {
 	// база магазина
-	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+	var strBase = &StorageBase{storeBaseIds, storeBase, ordersBase}
 
 	var usrCrt Carter = &UserCart{"keyboard": 1, "phone": 1, "lamp": 2}
 
-	v := usrCrt.GetTotalMulti(strBase.(*StorageBase))
-	v2 := usrCrt.GetTotalMulti(strBase.(*StorageBase))
+	v := usrCrt.GetTotalMulti(strBase)
+	v2 := usrCrt.GetTotalMulti(strBase)
 
 	if v != 161.95 && v2 != 161.95 {
 		t.Fatal()
@@ -98,12 +98,12 @@ func TestGetTotalMulti_161_95(t *testing.T) {
 // Ожидается, что Admin может купить товары из заданной корзины, а User нет
 func TestIsAllowedFor_True(t *testing.T) {
 	// база магазина
-	var strBase Keeper = &StorageBase{storeBaseIds, storeBase, ordersBase}
+	var strBase = &StorageBase{storeBaseIds, storeBase, ordersBase}
 
 	var usrCrt Carter = &UserCart{"keyboard": 1, "phone": 1, "lamp": 2}
 
-	v := usrCrt.IsAllowedFor(strBase.(*StorageBase), usersBase, "Admin")
-	v2 := usrCrt.IsAllowedFor(strBase.(*StorageBase), usersBase, "User")
+	v := usrCrt.IsAllowedFor(strBase, usersBase, "Admin")
+	v2 := usrCrt.IsAllowedFor(strBase, usersBase, "User")
 
 	if !v && v2 {
 		t.Fatal()
