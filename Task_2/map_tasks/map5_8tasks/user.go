@@ -47,6 +47,27 @@ func (usr *User) PrintSortedNames(reverse int) {
 	}
 }
 
+// версия для теста
+func PrintSortedNames2(usr []string, reverse int) []string {
+
+	outStr := make([]string, len(usr))
+
+	sort.Strings(usr)
+
+	if reverse == 0 {
+		for i := 0; i < len(usr); i++ {
+			//fmt.Println(name, " : ", (*usr)[name])
+			outStr[i] = usr[i]
+		}
+	} else {
+		for i := len(usr) - 1; i >= 0; i-- {
+			//fmt.Println(keys[i], " : ", (*usr)[keys[i]])
+			outStr[i] = usr[i]
+		}
+	}
+	return outStr
+}
+
 // По убыванию средств пользователей
 func (usr *User) PrintByBalance() {
 

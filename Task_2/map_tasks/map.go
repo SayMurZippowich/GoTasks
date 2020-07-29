@@ -45,6 +45,23 @@ func CountWordsFileHandler(path string) map[string]int {
 	return wMap
 }
 
+// версия для чтения из строки
+func CountWords(str string, c ...unicode.SpecialCase) map[string]int {
+
+	// словарь[слово]частота
+	wMap := make(map[string]int)
+
+	// функция для FieldsFunc
+	// позволяет игнорировать знаки препинания в тексте
+	rule := func(chr rune) bool {
+		return !unicode.IsLetter(chr)
+	}
+	strArr := strings.FieldsFunc(str, rule)
+	CountStr(wMap, &strArr)
+
+	return wMap
+}
+
 func CountStr(m map[string]int, str *[]string) {
 	for _, val := range *str {
 		m[val]++
